@@ -6,7 +6,7 @@
  * design tokens, or files in the `./tailwind/custom` folder.
  */
  @import url('https://fonts.googleapis.com/css2?family=Old+Standard+TT:wght@400;700&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
- 
+ @import 'swiper/css/bundle';
 /**
  * Because this file shares code with `tailwind-editor.css`, we import the
  * shared code to avoid duplication.
