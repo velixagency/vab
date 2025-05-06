@@ -10,13 +10,27 @@
  */
 function vab_register_blocks() {
     error_log( 'vab_register_blocks called' );
+    error_log( 'Block path: ' . get_template_directory() . '/../blocks/hero' );
     if ( ! function_exists( 'register_block_type' ) ) {
         error_log( 'register_block_type not available' );
         return;
     }
+    if ( ! file_exists( get_template_directory() . '/../blocks/block.json' ) ) {
+        error_log( 'block.json not found at ' . get_template_directory() . '/../blocks/block.json' );
+    }
     register_block_type( get_template_directory() . '/../blocks/hero', [
         'api_version' => 3,
         'render_callback' => 'vab_render_hero_block',
+    ] );
+    // Temporary test block to debug registration
+    register_block_type( 'vab/test', [
+        'api_version' => 3,
+        'title' => 'Test Block',
+        'category' => 'layout',
+        'icon' => 'smiley',
+        'render_callback' => function() {
+            return '<p>Test Block</p>';
+        },
     ] );
 }
 add_action( 'init', 'vab_register_blocks' );
@@ -29,7 +43,6 @@ add_action( 'init', 'vab_register_blocks' );
  * @return string Rendered block HTML.
  */
 function vab_render_hero_block( $attributes, $content ) {
-    // Ensure attributes exist
     $slides = ! empty( $attributes['slides'] ) ? $attributes['slides'] : [];
 
     ob_start();

@@ -84,15 +84,13 @@ function vab_enqueue_scripts() {
 
     // Enqueue hero block script
     $hero_block_path = get_template_directory() . '/js/hero.min.js';
-    if ( file_exists( $hero_block_path ) ) {
-        wp_enqueue_script(
-            'vab-hero-block',
-            get_theme_file_uri( '/js/hero.min.js' ),
-            [ 'wp-blocks', 'wp-i18n', 'wp-block-editor', 'wp-components' ],
-            filemtime( $hero_block_path ),
-            true
-        );
-    }
+    wp_enqueue_script(
+        'vab-hero-block',
+        get_theme_file_uri( '/js/hero.min.js' ),
+        [ 'wp-blocks', 'wp-i18n', 'wp-block-editor', 'wp-components' ],
+        file_exists( $hero_block_path ) ? filemtime( $hero_block_path ) : VAB_VERSION,
+        true
+    );
 }
 add_action( 'wp_enqueue_scripts', 'vab_enqueue_scripts' );
 add_action( 'enqueue_block_editor_assets', 'vab_enqueue_scripts' );

@@ -1,18 +1,18 @@
 {
-    "$schema": "https://schemas.wp.org/trunk/block.json",
-    "apiVersion": 3,
-    "name": "vab/hero",
-    "title": "Hero Slider",
-    "description": "A hero slider with Swiper, supporting lazy loading, parallax, and crossfade.",
-    "category": "layout",
-    "icon": "slides",
-    "keywords": ["slider", "hero", "swiper"],
-    "textdomain": "vab",
-    "attributes": {
-      "slides": {
-        "type": "array",
-        "default": []
-      }
-    },
-    "editorScript": "file:./hero.js"
-  }
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "vab/hero",
+  "title": "Hero Slider",
+  "description": "A hero slider with Swiper, supporting lazy loading, parallax, and crossfade.",
+  "category": "layout",
+  "icon": "slides",
+  "keywords": ["slider", "hero", "swiper"],
+  "textdomain": "vab",
+  "attributes": {
+    "slides": {
+      "type": "array",
+      "default": []
+    }
+  },
+  "editorScript": "file:./hero.js"
+}
