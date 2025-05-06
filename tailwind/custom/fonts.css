@@ -1,0 +1,8 @@
+/**
+ * Custom `@font-face` rules
+ *
+ * These will be added immediately before Tailwind’s `base` layer.
+ */
+h1{
+    @apply text-[100px];
+}
