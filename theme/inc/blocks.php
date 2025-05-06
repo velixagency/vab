@@ -9,12 +9,11 @@
  * Register custom blocks.
  */
 function vab_register_blocks() {
-    // Check if register_block_type is available
+    error_log( 'vab_register_blocks called' );
     if ( ! function_exists( 'register_block_type' ) ) {
+        error_log( 'register_block_type not available' );
         return;
     }
-
-    // Register Hero block
     register_block_type( get_template_directory() . '/../blocks/hero', [
         'api_version' => 3,
         'render_callback' => 'vab_render_hero_block',
