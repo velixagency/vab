@@ -8,171 +8,94 @@
  */
 
 if ( ! defined( 'VAB_VERSION' ) ) {
-	/*
-	 * Set the theme’s version number.
-	 *
-	 * This is used primarily for cache busting. If you use `npm run bundle`
-	 * to create your production build, the value below will be replaced in the
-	 * generated zip file with a timestamp, converted to base 36.
-	 */
-	define( 'VAB_VERSION', '0.1.0' );
+    define( 'VAB_VERSION', '0.1.0' );
 }
 
 if ( ! defined( 'VAB_TYPOGRAPHY_CLASSES' ) ) {
-	/*
-	 * Set Tailwind Typography classes for the front end, block editor and
-	 * classic editor using the constant below.
-	 *
-	 * For the front end, these classes are added by the `vab_content_class`
-	 * function. You will see that function used everywhere an `entry-content`
-	 * or `page-content` class has been added to a wrapper element.
-	 *
-	 * For the block editor, these classes are converted to a JavaScript array
-	 * and then used by the `./javascript/block-editor.js` file, which adds
-	 * them to the appropriate elements in the block editor (and adds them
-	 * again when they’re removed.)
-	 *
-	 * For the classic editor (and anything using TinyMCE, like Advanced Custom
-	 * Fields), these classes are added to TinyMCE’s body class when it
-	 * initializes.
-	 */
-	define(
-		'VAB_TYPOGRAPHY_CLASSES',
-		'prose prose-neutral max-w-none prose-a:text-primary'
-	);
+    define(
+        'VAB_TYPOGRAPHY_CLASSES',
+        'prose prose-neutral max-w-none prose-a:text-primary'
+    );
 }
 
-if ( ! function_exists( 'vab_setup' ) ) :
-	/**
-	 * Sets up theme defaults and registers support for various WordPress features.
-	 *
-	 * Note that this function is hooked into the after_setup_theme hook, which
-	 * runs before the init hook. The init hook is too late for some features, such
-	 * as indicating support for post thumbnails.
-	 */
-	function vab_setup() {
-		/*
-		 * Make theme available for translation.
-		 * Translations can be filed in the /languages/ directory.
-		 * If you're building a theme based on vab, use a find and replace
-		 * to change 'vab' to the name of your theme in all the template files.
-		 */
-		load_theme_textdomain( 'vab', get_template_directory() . '/languages' );
+function vab_setup() {
+    load_theme_textdomain( 'vab', get_template_directory() . '/languages' );
+    add_theme_support( 'automatic-feed-links' );
+    add_theme_support( 'title-tag' );
+    add_theme_support( 'post-thumbnails' );
+    add_theme_support( 'html5', [ 'search-form', 'gallery', 'caption', 'style', 'script' ] );
+    add_theme_support( 'customize-selective-refresh-widgets' );
+    add_theme_support( 'wp-block-styles' );
+    add_theme_support( 'align-wide' );
+    add_theme_support( 'editor-styles' );
+    add_theme_support( 'responsive-embeds' );
+    add_editor_style( 'style-editor.css' );
+    add_editor_style( 'style-editor-extra.css' );
 
-		// Add default posts and comments RSS feed links to head.
-		add_theme_support( 'automatic-feed-links' );
-
-		/*
-		 * Let WordPress manage the document title.
-		 * By adding theme support, we declare that this theme does not use a
-		 * hard-coded <title> tag in the document head, and expect WordPress to
-		 * provide it for us.
-		 */
-		add_theme_support( 'title-tag' );
-
-		/*
-		 * Enable support for Post Thumbnails on posts and pages.
-		 *
-		 * @link https://developer.wordpress.org/themes/functionality/featured-images-post-thumbnails/
-		 */
-		add_theme_support( 'post-thumbnails' );
-
-		// This theme uses wp_nav_menu() in two locations.
-		register_nav_menus(
-			array(
-				'menu-1' => __( 'Primary', 'vab' ),
-				'menu-2' => __( 'Footer Menu', 'vab' ),
-			)
-		);
-
-		/*
-		 * Switch default core markup for search form, comment form, and comments
-		 * to output valid HTML5.
-		 */
-		add_theme_support(
-			'html5',
-			array(
-				'search-form',
-				'comment-form',
-				'comment-list',
-				'gallery',
-				'caption',
-				'style',
-				'script',
-			)
-		);
-
-		// Add theme support for selective refresh for widgets.
-		add_theme_support( 'customize-selective-refresh-widgets' );
-
-		// Add support for editor styles.
-		add_theme_support( 'editor-styles' );
-
-		// Enqueue editor styles.
-		add_editor_style( 'style-editor.css' );
-		add_editor_style( 'style-editor-extra.css' );
-
-		// Add support for responsive embedded content.
-		add_theme_support( 'responsive-embeds' );
-
-		// Remove support for block templates.
-		remove_theme_support( 'block-templates' );
-	}
-endif;
+    register_nav_menus(
+        array(
+            'menu-1' => __( 'Primary', 'vab' ),
+            'menu-2' => __( 'Footer Menu', 'vab' ),
+        )
+    );
+}
 add_action( 'after_setup_theme', 'vab_setup' );
 
-/**
- * Register widget area.
- *
- * @link https://developer.wordpress.org/themes/functionality/sidebars/#registering-a-sidebar
- */
 function vab_widgets_init() {
-	register_sidebar(
-		array(
-			'name'          => __( 'Footer', 'vab' ),
-			'id'            => 'sidebar-1',
-			'description'   => __( 'Add widgets here to appear in your footer.', 'vab' ),
-			'before_widget' => '<section id="%1$s" class="widget %2$s">',
-			'after_widget'  => '</section>',
-			'before_title'  => '<h2 class="widget-title">',
-			'after_title'   => '</h2>',
-		)
-	);
+    register_sidebar(
+        array(
+            'name'          => __( 'Footer', 'vab' ),
+            'id'            => 'sidebar-1',
+            'description'   => __( 'Add widgets here to appear in your footer.', 'vab' ),
+            'before_widget' => '<section id="%1$s" class="widget %2$s">',
+            'after_widget'  => '</section>',
+            'before_title'  => '<h2 class="widget-title">',
+            'after_title'   => '</h2>',
+        )
+    );
 }
 add_action( 'widgets_init', 'vab_widgets_init' );
 
-/**
- * Enqueue scripts and styles.
- */
-function vab_scripts() {
-	wp_enqueue_style( 'vab-style', get_stylesheet_uri(), array(), VAB_VERSION );
-	wp_enqueue_script( 'vab-script', get_template_directory_uri() . '/js/script.min.js', array(), VAB_VERSION, true );
+function vab_enqueue_scripts() {
+    // Enqueue main stylesheet
+    $style_path = get_template_directory() . '/style.css';
+    wp_enqueue_style( 'vab-style', get_stylesheet_uri(), [], file_exists( $style_path ) ? filemtime( $style_path ) : null );
 
-	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
-		wp_enqueue_script( 'comment-reply' );
-	}
-}
-add_action( 'wp_enqueue_scripts', 'vab_scripts' );
+    // Enqueue main script
+    $script_path = get_template_directory() . '/js/script.min.js';
+    wp_enqueue_script( 'vab-script', get_theme_file_uri( '/js/script.min.js' ), [], file_exists( $script_path ) ? filemtime( $script_path ) : null, true );
 
-/**
- * Enqueue the block editor script.
- */
-function vab_enqueue_block_editor_script() {
-	if ( is_admin() ) {
-		wp_enqueue_script(
-			'vab-editor',
-			get_template_directory_uri() . '/js/block-editor.min.js',
-			array(
-				'wp-blocks',
-				'wp-edit-post',
-			),
-			VAB_VERSION,
-			true
-		);
-		wp_add_inline_script( 'vab-editor', "tailwindTypographyClasses = '" . esc_attr( VAB_TYPOGRAPHY_CLASSES ) . "'.split(' ');", 'before' );
-	}
+    // Enqueue block editor styles
+    $editor_style_path = get_template_directory() . '/style-editor.css';
+    wp_enqueue_style( 'vab-style-editor', get_theme_file_uri( '/style-editor.css' ), [], file_exists( $editor_style_path ) ? filemtime( $editor_style_path ) : null );
+
+    $editor_extra_style_path = get_template_directory() . '/style-editor-extra.css';
+    wp_enqueue_style( 'vab-style-editor-extra', get_theme_file_uri( '/style-editor-extra.css' ), [], file_exists( $editor_extra_style_path ) ? filemtime( $editor_extra_style_path ) : null );
+
+    // Enqueue block editor scripts
+    $block_editor_path = get_template_directory() . '/js/block-editor.min.js';
+    wp_enqueue_script(
+        'vab-block-editor',
+        get_theme_file_uri( '/js/block-editor.min.js' ),
+        [ 'wp-blocks', 'wp-dom-ready', 'wp-edit-post' ],
+        file_exists( $block_editor_path ) ? filemtime( $block_editor_path ) : null,
+        true
+    );
+
+    // Enqueue hero block script
+    $hero_block_path = get_template_directory() . '/js/hero.min.js';
+    if ( file_exists( $hero_block_path ) ) {
+        wp_enqueue_script(
+            'vab-hero-block',
+            get_theme_file_uri( '/js/hero.min.js' ),
+            [ 'wp-blocks', 'wp-i18n', 'wp-block-editor', 'wp-components' ],
+            filemtime( $hero_block_path ),
+            true
+        );
+    }
 }
-add_action( 'enqueue_block_assets', 'vab_enqueue_block_editor_script' );
+add_action( 'wp_enqueue_scripts', 'vab_enqueue_scripts' );
+add_action( 'enqueue_block_editor_assets', 'vab_enqueue_scripts' );
 
 /**
  * Add the Tailwind Typography classes to TinyMCE.
@@ -181,8 +104,8 @@ add_action( 'enqueue_block_assets', 'vab_enqueue_block_editor_script' );
  * @return array
  */
 function vab_tinymce_add_class( $settings ) {
-	$settings['body_class'] = VAB_TYPOGRAPHY_CLASSES;
-	return $settings;
+    $settings['body_class'] = VAB_TYPOGRAPHY_CLASSES;
+    return $settings;
 }
 add_filter( 'tiny_mce_before_init', 'vab_tinymce_add_class' );
 
@@ -194,24 +117,21 @@ add_filter( 'tiny_mce_before_init', 'vab_tinymce_add_class' );
  * @return array
  */
 function vab_modify_heading_levels( $args, $block_type ) {
-	if ( 'core/heading' !== $block_type ) {
-		return $args;
-	}
+    if ( 'core/heading' !== $block_type ) {
+        return $args;
+    }
 
-	// Remove <h1>, <h5> and <h6>.
-	$args['attributes']['levelOptions']['default'] = array( 2, 3, 4 );
+    // Remove <h1>, <h5> and <h6>.
+    $args['attributes']['levelOptions']['default'] = array( 2, 3, 4 );
 
-	return $args;
+    return $args;
 }
 add_filter( 'register_block_type_args', 'vab_modify_heading_levels', 10, 2 );
 
 /**
  * Custom template tags for this theme.
  */
+require_once get_template_directory() . '/inc/blocks.php';
 require get_template_directory() . '/inc/template-tags.php';
-
-/**
- * Functions which enhance the theme by hooking into WordPress.
- */
 require get_template_directory() . '/inc/template-functions.php';
 require get_template_directory() . '/inc/tw-navwalker.php';
